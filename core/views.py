@@ -1,3 +1,4 @@
+import logging
 import os
 
 import stripe
@@ -27,6 +28,7 @@ from .models import UserProfile
 from .tokens import email_verification_token
 
 User = get_user_model()
+logger = logging.getLogger(__name__)
 
 
 def get_or_create_profile(user):
@@ -39,7 +41,9 @@ def send_verification_email(request, user):
     token = email_verification_token.make_token(user)
     verification_path = reverse("verify_email", kwargs={"uidb64": uidb64, "token": token})
     verification_url = request.build_absolute_uri(verification_path)
+
     subject = "Verify your MedEcho AI email address"
+
     message = f"""
 Hello {user.first_name or user.username},
 
@@ -54,8 +58,27 @@ If you did not create this account, you can ignore this email.
 MedEcho AI
 Educational simulation only. Not for diagnosis or patient care.
 """
-    send_mail(subject=subject, message=message, from_email=settings.DEFAULT_FROM_EMAIL, recipient_list=[user.email], fail_silently=False)
 
+    try:
+        send_mail(
+            subject=subject,
+            message=message,
+            from_email=settings.DEFAULT_FROM_EMAIL,
+            recipient_list=[user.email],
+            fail_silently=False,
+        )
+        return True
+    except Exception:
+        logger.exception(
+            "Verification email failed. user_id=%s email=%s",
+            user.pk,
+            user.email,
+        )
+        messages.warning(
+            request,
+            "Your account was created, but the verification email could not be sent. Please use resend verification or contact support.",
+        )
+        return False
 
 def landing(request):
     if request.user.is_authenticated:
