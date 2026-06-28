@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}Email verified | MedEcho AI{% endblock %}
+
+{% block content %}
+<section class="relative mx-auto flex min-h-[calc(100vh-170px)] max-w-xl items-center justify-center px-6 py-12">
+    <div class="absolute top-1/2 left-1/2 h-[400px] w-[400px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-emerald-600/15 blur-[120px] pointer-events-none"></div>
+
+    <div class="relative z-10 w-full rounded-[2.5rem] border border-emerald-500/30 bg-gradient-to-br from-emerald-950/40 via-slate-900/80 to-slate-900/80 p-10 text-center shadow-2xl backdrop-blur-xl">
+        <div class="mx-auto flex h-20 w-20 items-center justify-center rounded-[1.5rem] bg-gradient-to-br from-emerald-400 to-emerald-600 shadow-[0_0_30px_rgba(52,211,153,0.3)]">
+            <svg class="h-10 w-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+        </div>
+
+        <div class="mt-8 mb-3 inline-flex rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-xs font-bold uppercase tracking-wide text-emerald-400">
+            Email Verified
+        </div>
+
+        <h1 class="mt-2 text-4xl font-black tracking-tight text-white">Your account is ready</h1>
+        
+        <p class="mx-auto mt-5 max-w-sm text-base leading-relaxed text-slate-300">
+            Your email address has been successfully verified. You can now log in and begin your OSCE consultation practice.
+        </p>
+
+        <div class="mt-10">
+            <a href="{% url 'login' %}" class="inline-flex items-center justify-center rounded-xl bg-emerald-500 px-10 py-4 text-sm font-bold text-white transition-all hover:scale-[1.02] hover:bg-emerald-400 hover:shadow-[0_0_20px_rgba(16,185,129,0.3)]">
+                Log in to MedEcho
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block title %}Our Story | MedEcho AI{% endblock %}
+
+{% block content %}
+<section class="relative mx-auto max-w-4xl px-6 py-16 lg:py-24">
+    <!-- Ambient Background Glows -->
+    <div class="absolute top-0 right-0 h-[400px] w-[400px] -translate-y-1/4 translate-x-1/4 rounded-full bg-cyan-600/10 blur-[120px] pointer-events-none"></div>
+    <div class="absolute bottom-0 left-0 h-[300px] w-[300px] translate-y-1/4 -translate-x-1/4 rounded-full bg-purple-600/10 blur-[100px] pointer-events-none"></div>
+
+    <div class="relative z-10 text-center mb-16">
+        <div class="mb-6 inline-flex items-center gap-2 rounded-full border border-cyan-500/30 bg-cyan-500/10 px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-cyan-300 backdrop-blur-sm">
+            Origin Story
+        </div>
+        <h1 class="text-4xl font-black tracking-tight text-white sm:text-5xl md:text-6xl mb-6">
+            Built by a doctor, <br>
+            <span class="bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">for the next generation.</span>
+        </h1>
+    </div>
+
+    <!-- The Story Content -->
+    <div class="relative z-10 rounded-[2.5rem] border border-white/5 bg-slate-900/40 p-8 md:p-14 shadow-2xl backdrop-blur-xl">
+        
+        <div class="prose prose-invert prose-lg max-w-none">
+            <p class="text-xl leading-relaxed text-slate-300 font-medium mb-8">
+                The story of MedEcho AI begins with a common, frustrating bottleneck shared by thousands of international medical graduates aiming to practice in the UK.
+            </p>
+
+            <h3 class="text-2xl font-bold text-white mt-12 mb-4">The PLAB Challenge</h3>
+            <p class="text-slate-400 leading-relaxed mb-6">
+                After graduating from medical school in 2023, Dr. Mohamed Salhi relocated to the United Kingdom, settling in Cumbria. While actively working as a Healthcare Assistant to support himself and familiarize himself with the NHS system, he began preparing for the PLAB examinations—a notoriously rigorous assessment of clinical and communication skills.
+            </p>
+            <p class="text-slate-400 leading-relaxed mb-6">
+                He quickly realized that while medical knowledge can be learned from textbooks, <em>consultation skills</em> require active muscle memory. Passing OSCE-style exams like PLAB 2 demands empathy, active listening, and the ability to think on your feet. The only way to improve is through repeated practice with a partner.
+            </p>
+            <p class="text-slate-400 leading-relaxed mb-10">
+                But coordinating schedules with other busy doctors across different time zones was nearly impossible. Roleplaying with non-medical friends lacked clinical accuracy. He found himself wishing for a 24/7 practice partner—a patient who was always available, clinically accurate, and capable of giving instant, objective feedback.
+            </p>
+
+            <div class="my-12 flex justify-center">
+                <div class="h-px w-24 bg-gradient-to-r from-transparent via-cyan-500/50 to-transparent"></div>
+            </div>
+
+            <h3 class="text-2xl font-bold text-white mb-4">Medicine Meets Code</h3>
+            <p class="text-slate-400 leading-relaxed mb-6">
+                Most doctors would have simply pushed through the frustration. But alongside his medical degree, Dr. Salhi had spent years mastering full-stack software development. Fluent in modern web frameworks, AI integrations, and backend architecture, he realized he possessed the exact skill set required to build the tool he so desperately needed.
+            </p>
+            <p class="text-slate-400 leading-relaxed mb-6">
+                He opened his code editor and went to work. What began as a personal utility—a simple prompt engine to simulate patient responses—rapidly evolved. He integrated state-of-the-art Large Language Models to handle complex medical histories. He added live voice processing so he could put his keyboard away and practice speaking out loud. He even built a dynamic scoring system to critique his management plans against strict clinical guidelines.
+            </p>
+
+            <div class="my-12 flex justify-center">
+                <div class="h-px w-24 bg-gradient-to-r from-transparent via-purple-500/50 to-transparent"></div>
+            </div>
+
+            <h3 class="text-2xl font-bold text-white mb-4">The Birth of MedEcho AI</h3>
+            <p class="text-slate-400 leading-relaxed mb-6">
+                When the system was complete, the results were transformative. The ability to simulate high-pressure, realistic consultations on demand completely revolutionized his exam preparation. Realizing that tens of thousands of medical students, foundation doctors, and IMGs face this exact same struggle every year, he decided to refine the software and release it to the public.
+            </p>
+            <p class="text-slate-400 leading-relaxed mb-6">
+                Today, <strong>MedEcho AI</strong> stands as a testament to solving real-world problems through cross-disciplinary innovation. It is an educational simulator built from the ground up by a physician who understands the anxiety of the exam room, powered by code written by a developer who understands the potential of artificial intelligence.
+            </p>
+            <p class="text-xl text-cyan-300 font-medium mt-8 italic">
+                "Our mission is simple: to ensure no healthcare professional ever fails an exam because they didn't have someone to practice with."
+            </p>
+        </div>
+    </div>
+
+    <!-- Call to Action -->
+    <div class="mt-16 text-center">
+        <h2 class="text-2xl font-bold text-white mb-6">Ready to start your own practice?</h2>
+        <a href="{% url 'register' %}" class="inline-flex items-center justify-center rounded-xl bg-cyan-400 px-8 py-4 text-sm font-bold text-slate-900 shadow-lg shadow-cyan-400/20 transition-all hover:scale-105 hover:bg-cyan-300">
+            Create a Free Account Today
+        </a>
+    </div>
+</section>
+{% endblock %}

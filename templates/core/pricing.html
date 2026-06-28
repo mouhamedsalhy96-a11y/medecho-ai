@@ -1,0 +1,193 @@
+{% extends "base.html" %}
+
+{% block title %}Pricing | MedEcho AI{% endblock %}
+
+{% block content %}
+<section class="relative mx-auto max-w-7xl px-6 py-16 lg:py-24">
+    <!-- Background Glows -->
+    <div class="absolute top-0 left-1/2 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/4 rounded-full bg-cyan-600/10 blur-[120px] pointer-events-none"></div>
+
+    <div class="relative z-10 mx-auto max-w-3xl text-center">
+        <div class="mb-4 inline-flex items-center gap-2 rounded-full border border-cyan-500/30 bg-cyan-500/10 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-cyan-300 backdrop-blur-sm">
+            <span class="relative flex h-1.5 w-1.5"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span><span class="relative inline-flex rounded-full h-1.5 w-1.5 bg-cyan-500"></span></span>
+            Pricing
+        </div>
+        <h1 class="mt-4 text-4xl font-black tracking-tight text-white sm:text-5xl md:text-6xl">
+            Simple pricing for <span class="bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent">OSCE practice</span>
+        </h1>
+        <p class="mt-6 text-lg leading-relaxed text-slate-300">
+            Start free, upgrade for larger monthly limits, and buy Live Consultation credits separately when you need timed voice practice.
+        </p>
+    </div>
+
+    <!-- Pricing Grid -->
+    <div class="relative z-10 mt-16 grid items-stretch gap-8 lg:grid-cols-4">
+        
+        <!-- Free Plan -->
+        <div class="relative flex h-full flex-col rounded-[2rem] border border-white/5 bg-slate-900/40 p-8 shadow-xl backdrop-blur-md transition-all hover:-translate-y-1 hover:border-slate-500/30">
+            <div>
+                <h2 class="text-2xl font-bold text-white">Free</h2>
+                <div class="mt-4 flex items-baseline gap-1">
+                    <span class="text-4xl font-black text-white">$0</span>
+                </div>
+                <p class="mt-4 min-h-[3rem] text-sm leading-relaxed text-slate-400">Try text-only practice.</p>
+                <ul class="mt-8 space-y-4 text-sm font-medium text-slate-300">
+                    <li class="flex items-start gap-3">
+                        <svg class="w-5 h-5 shrink-0 text-slate-400 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                        3 text cases/month
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <svg class="w-5 h-5 shrink-0 text-slate-400 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                        Text patient chat
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <svg class="w-5 h-5 shrink-0 text-slate-400 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                        Text investigation reports
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <svg class="w-5 h-5 shrink-0 text-slate-400 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                        Email verification required
+                    </li>
+                </ul>
+            </div>
+            <div class="mt-auto pt-10">
+                <a href="{% url 'register' %}" class="inline-flex w-full items-center justify-center rounded-xl bg-white px-4 py-3.5 text-sm font-bold text-slate-900 transition-all hover:scale-[1.02] hover:bg-slate-200">Start free</a>
+            </div>
+        </div>
+
+        <!-- Starter Plan -->
+        <div class="relative flex h-full flex-col rounded-[2rem] border border-white/5 bg-slate-900/40 p-8 shadow-xl backdrop-blur-md transition-all hover:-translate-y-1 hover:border-slate-500/30">
+            <div>
+                <h2 class="text-2xl font-bold text-white">Starter</h2>
+                <div class="mt-4 flex items-baseline gap-1">
+                    <span class="text-4xl font-black text-white">$9</span><span class="text-slate-400">/month</span>
+                </div>
+                <p class="mt-4 min-h-[3rem] text-sm leading-relaxed text-slate-400">For regular text practice.</p>
+                <ul class="mt-8 space-y-4 text-sm font-medium text-slate-300">
+                    <li class="flex items-start gap-3">
+                        <svg class="w-5 h-5 shrink-0 text-cyan-400 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                        25 text cases/month
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <svg class="w-5 h-5 shrink-0 text-cyan-400 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                        Text patient chat
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <svg class="w-5 h-5 shrink-0 text-cyan-400 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                        Text investigation reports
+                    </li>
+                    <li class="flex items-start gap-3 text-slate-500">
+                        <svg class="w-5 h-5 shrink-0 text-slate-600 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        Live Consultation credits sold separately
+                    </li>
+                </ul>
+            </div>
+            <div class="mt-auto pt-10">
+                <a href="{% url 'register' %}" class="inline-flex w-full items-center justify-center rounded-xl border border-cyan-500/50 bg-cyan-500/10 px-4 py-3.5 text-sm font-bold text-cyan-300 transition-all hover:scale-[1.02] hover:bg-cyan-500 hover:text-slate-950">Register</a>
+            </div>
+        </div>
+
+        <!-- Student Plan (Popular) -->
+        <div class="relative flex h-full flex-col rounded-[2rem] border border-cyan-500/50 bg-slate-900/80 p-8 shadow-2xl shadow-cyan-900/20 backdrop-blur-xl transition-all hover:-translate-y-1 z-10 scale-105">
+            <div class="absolute -top-4 right-8 rounded-full bg-cyan-400 px-4 py-1 text-xs font-bold uppercase tracking-wider text-slate-950 shadow-lg shadow-cyan-400/30">Popular</div>
+            <div>
+                <h2 class="text-2xl font-bold text-white">Student</h2>
+                <div class="mt-4 flex items-baseline gap-1">
+                    <span class="text-4xl font-black text-white">$19</span><span class="text-slate-400">/month</span>
+                </div>
+                <p class="mt-4 min-h-[3rem] text-sm leading-relaxed text-slate-300">For students and exam candidates.</p>
+                <ul class="mt-8 space-y-4 text-sm font-medium text-slate-300">
+                    <li class="flex items-start gap-3">
+                        <svg class="w-5 h-5 shrink-0 text-cyan-400 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                        <span class="text-white">100 text cases/month</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <svg class="w-5 h-5 shrink-0 text-cyan-400 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                        <span class="text-white">20 patient voice generations/month</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <svg class="w-5 h-5 shrink-0 text-cyan-400 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                        <span class="text-white">20 educational image investigations/month</span>
+                    </li>
+                    <li class="flex items-start gap-3 text-slate-400">
+                        <svg class="w-5 h-5 shrink-0 text-slate-500 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        Live Consultation credits sold separately
+                    </li>
+                </ul>
+            </div>
+            <div class="mt-auto pt-10">
+                <a href="{% url 'register' %}" class="inline-flex w-full items-center justify-center rounded-xl bg-cyan-400 px-4 py-3.5 text-sm font-bold text-slate-950 shadow-lg shadow-cyan-400/20 transition-all hover:scale-[1.02] hover:bg-cyan-300">Register</a>
+            </div>
+        </div>
+
+        <!-- Pro Plan -->
+        <div class="relative flex h-full flex-col rounded-[2rem] border border-purple-500/30 bg-slate-900/40 p-8 shadow-xl shadow-purple-900/10 backdrop-blur-md transition-all hover:-translate-y-1">
+            <div>
+                <h2 class="text-2xl font-bold text-white">Pro</h2>
+                <div class="mt-4 flex items-baseline gap-1">
+                    <span class="text-4xl font-black text-white">$39</span><span class="text-slate-400">/month</span>
+                </div>
+                <p class="mt-4 min-h-[3rem] text-sm leading-relaxed text-slate-400">For high-volume practice and tutors.</p>
+                <ul class="mt-8 space-y-4 text-sm font-medium text-slate-300">
+                    <li class="flex items-start gap-3">
+                        <svg class="w-5 h-5 shrink-0 text-purple-400 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                        300 text cases/month
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <svg class="w-5 h-5 shrink-0 text-purple-400 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                        100 patient voice generations/month
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <svg class="w-5 h-5 shrink-0 text-purple-400 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                        100 educational image investigations/month
+                    </li>
+                    <li class="flex items-start gap-3 text-slate-500">
+                        <svg class="w-5 h-5 shrink-0 text-slate-600 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        Live Consultation credits sold separately
+                    </li>
+                </ul>
+            </div>
+            <div class="mt-auto pt-10">
+                <a href="{% url 'register' %}" class="inline-flex w-full items-center justify-center rounded-xl border border-purple-500/50 bg-purple-500/10 px-4 py-3.5 text-sm font-bold text-purple-300 transition-all hover:scale-[1.02] hover:bg-purple-500 hover:text-slate-950">Register</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Live Consultation Add-on Section -->
+    <section class="relative mt-24 overflow-hidden rounded-[2.5rem] border border-red-500/20 bg-gradient-to-br from-red-950/30 to-slate-900/60 p-8 md:p-12 shadow-2xl backdrop-blur-xl">
+        <div class="absolute top-0 right-0 h-64 w-64 -translate-y-1/2 translate-x-1/2 rounded-full bg-red-600/10 blur-[80px] pointer-events-none"></div>
+        
+        <div class="relative z-10 grid gap-10 lg:grid-cols-2 lg:items-center">
+            <div>
+                <div class="mb-4 inline-flex rounded-full border border-red-500/30 bg-red-500/10 px-4 py-1.5 text-xs font-bold uppercase tracking-wide text-red-400">Timed voice practice</div>
+                <h2 class="text-3xl font-black text-white md:text-4xl">Live Consultation credits</h2>
+                <p class="mt-4 text-lg leading-relaxed text-slate-300">Live Consultation is sold separately so timed voice sessions stay high quality and cost controlled. Each credit includes an 8-minute voice stream, transcript capture, and advanced examiner feedback processing.</p>
+            </div>
+            
+            <div class="rounded-[2rem] border border-red-500/20 bg-slate-950/60 p-8 backdrop-blur-md max-w-md lg:ml-auto w-full">
+                <h3 class="font-bold text-white text-xl">Live Consultation pack</h3>
+                <div class="mt-4 flex items-baseline gap-1">
+                    <span class="text-5xl font-black text-white">$20</span>
+                </div>
+                <p class="mt-2 text-sm font-medium text-slate-400">5 Live Consultations</p>
+                <a href="{% url 'register' %}" class="mt-8 inline-flex w-full items-center justify-center rounded-xl bg-red-500 px-4 py-3.5 text-sm font-bold text-white transition-all hover:scale-[1.02] hover:bg-red-400 hover:shadow-[0_0_15px_rgba(239,68,68,0.3)]">Register to Buy</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Practice Credits Add-on Section -->
+    <section class="relative mt-10 overflow-hidden rounded-[2.5rem] border border-white/5 bg-slate-900/40 p-8 md:p-12 shadow-2xl backdrop-blur-xl">
+        <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
+            <div class="max-w-2xl">
+                <h2 class="text-2xl font-black text-white">Practice credit packs</h2>
+                <p class="mt-4 text-slate-300 leading-relaxed">
+                    Practice credits are available inside Billing after registration. They can be used flexibly for extra text cases, patient voice generation, and educational image investigations.
+                </p>
+            </div>
+            <div class="shrink-0 w-full md:w-auto">
+                <a href="{% url 'register' %}" class="inline-flex w-full md:w-auto items-center justify-center rounded-xl border border-cyan-500/50 bg-cyan-500/10 px-8 py-3.5 text-sm font-bold text-cyan-300 transition-all hover:bg-cyan-500 hover:text-slate-950">Register to Buy</a>
+            </div>
+        </div>
+    </section>
+</section>
+{% endblock %}

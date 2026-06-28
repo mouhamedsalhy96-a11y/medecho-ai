@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+
+{% block title %}Register | MedEcho AI{% endblock %}
+
+{% block content %}
+<style>
+    /* Force Django's auto-rendered form fields to match the premium UI */
+    .premium-form input, .premium-form select {
+        width: 100%;
+        border-radius: 0.75rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background-color: rgba(15, 23, 42, 0.6);
+        padding: 0.75rem 1rem;
+        color: white;
+        outline: none;
+        transition: all 0.2s;
+        color-scheme: dark; /* This fixes the dark password eye icon! */
+    }
+    .premium-form input:focus, .premium-form select:focus {
+        border-color: rgba(34, 211, 238, 0.5);
+        box-shadow: 0 0 15px rgba(34, 211, 238, 0.1);
+        background-color: rgba(15, 23, 42, 0.9);
+    }
+    .premium-form select option {
+        background-color: #0f172a;
+        color: white;
+    }
+</style>
+
+<section class="relative mx-auto flex min-h-[calc(100vh-73px)] max-w-2xl items-center justify-center px-6 py-16">
+    <!-- Background Glows -->
+    <div class="absolute top-1/2 left-1/2 h-[400px] w-[400px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-600/10 blur-[100px] pointer-events-none"></div>
+
+    <div class="relative z-10 w-full rounded-[2.5rem] border border-white/5 bg-slate-900/40 p-8 md:p-12 shadow-2xl backdrop-blur-xl">
+        <div class="text-center mb-10">
+            <div class="mb-4 inline-flex items-center gap-2 rounded-full border border-cyan-500/30 bg-cyan-500/10 px-3 py-1 text-xs font-bold uppercase tracking-wide text-cyan-300 backdrop-blur-sm">
+                Create Account
+            </div>
+            <h1 class="text-3xl font-black text-white md:text-4xl">Start practising with MedEcho AI</h1>
+            <p class="mt-4 text-sm text-slate-400">Email verification is required before login to ensure secure access.</p>
+        </div>
+
+        {% if form.non_field_errors %}
+            <div class="mb-8 rounded-xl border border-red-500/30 bg-red-500/10 px-5 py-4 text-sm font-medium text-red-300 flex items-center gap-3 backdrop-blur-sm">
+                <svg class="w-5 h-5 shrink-0 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                {{ form.non_field_errors }}
+            </div>
+        {% endif %}
+
+        <form method="post" class="premium-form space-y-6">
+            {% csrf_token %}
+            
+            <div class="grid gap-6 md:grid-cols-2">
+                <div>
+                    <label for="{{ form.title.id_for_label }}" class="block text-sm font-semibold text-slate-300 mb-2">Title</label>
+                    {{ form.title }}
+                    {% for error in form.title.errors %}<p class="mt-2 text-xs font-medium text-red-400">{{ error }}</p>{% endfor %}
+                </div>
+                <div>
+                    <label for="{{ form.username.id_for_label }}" class="block text-sm font-semibold text-slate-300 mb-2">Username</label>
+                    {{ form.username }}
+                    {% for error in form.username.errors %}<p class="mt-2 text-xs font-medium text-red-400">{{ error }}</p>{% endfor %}
+                </div>
+            </div>
+
+            <div>
+                <label for="{{ form.full_name.id_for_label }}" class="block text-sm font-semibold text-slate-300 mb-2">Full name</label>
+                {{ form.full_name }}
+                {% for error in form.full_name.errors %}<p class="mt-2 text-xs font-medium text-red-400">{{ error }}</p>{% endfor %}
+            </div>
+
+            <div class="grid gap-6 md:grid-cols-2">
+                <div>
+                    <label for="{{ form.email.id_for_label }}" class="block text-sm font-semibold text-slate-300 mb-2">Email address</label>
+                    {{ form.email }}
+                    {% for error in form.email.errors %}<p class="mt-2 text-xs font-medium text-red-400">{{ error }}</p>{% endfor %}
+                </div>
+                <div>
+                    <label for="{{ form.phone_number.id_for_label }}" class="block text-sm font-semibold text-slate-300 mb-2">Phone number</label>
+                    {{ form.phone_number }}
+                    {% for error in form.phone_number.errors %}<p class="mt-2 text-xs font-medium text-red-400">{{ error }}</p>{% endfor %}
+                </div>
+            </div>
+
+            <div>
+                <label for="{{ form.level.id_for_label }}" class="block text-sm font-semibold text-slate-300 mb-2">Profession / Stage</label>
+                {{ form.level }}
+                {% for error in form.level.errors %}<p class="mt-2 text-xs font-medium text-red-400">{{ error }}</p>{% endfor %}
+            </div>
+
+            <div class="grid gap-6 md:grid-cols-2 pt-2 border-t border-white/5">
+                <div>
+                    <label for="{{ form.password1.id_for_label }}" class="block text-sm font-semibold text-slate-300 mb-2 mt-2">Password</label>
+                    <input type="password" name="{{ form.password1.html_name }}" id="{{ form.password1.id_for_label }}" required class="w-full rounded-xl border border-white/10 bg-slate-900/60 px-4 py-3 text-white outline-none focus:border-cyan-400/50 focus:bg-slate-900 focus:shadow-[0_0_15px_rgba(34,211,238,0.1)] transition-all">
+                    {% for error in form.password1.errors %}<p class="mt-2 text-xs font-medium text-red-400">{{ error }}</p>{% endfor %}
+                </div>
+                <div>
+                    <label for="{{ form.password2.id_for_label }}" class="block text-sm font-semibold text-slate-300 mb-2 mt-2">Confirm password</label>
+                    <input type="password" name="{{ form.password2.html_name }}" id="{{ form.password2.id_for_label }}" required class="w-full rounded-xl border border-white/10 bg-slate-900/60 px-4 py-3 text-white outline-none focus:border-cyan-400/50 focus:bg-slate-900 focus:shadow-[0_0_15px_rgba(34,211,238,0.1)] transition-all">
+                    {% for error in form.password2.errors %}<p class="mt-2 text-xs font-medium text-red-400">{{ error }}</p>{% endfor %}
+                </div>
+            </div>
+
+            <div class="pt-4">
+                <button type="submit" class="w-full rounded-xl bg-gradient-to-r from-cyan-400 to-blue-500 px-4 py-4 font-bold text-white shadow-lg shadow-cyan-500/25 transition-all hover:scale-[1.02] hover:brightness-110">
+                    Create Account
+                </button>
+            </div>
+        </form>
+
+        <p class="mt-8 text-center text-sm font-medium text-slate-400">
+            Already have an account? <a href="{% url 'login' %}" class="font-bold text-cyan-400 hover:text-cyan-300 transition-colors">Log in here</a>
+        </p>
+    </div>
+</section>
+{% endblock %}

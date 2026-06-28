@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}Access Restricted | MedEcho AI{% endblock %}
+
+{% block content %}
+<section class="mx-auto max-w-3xl px-6 py-20">
+    <div class="rounded-[2rem] border border-amber-500/30 bg-amber-950/20 p-8 text-center shadow-2xl shadow-amber-950/20">
+        <p class="text-sm font-semibold uppercase tracking-wide text-amber-300">403 error</p>
+        <h1 class="mt-3 text-4xl font-black text-white">Access restricted</h1>
+        <p class="mt-4 text-slate-300">
+            You do not have permission to access this page or action.
+        </p>
+        <div class="mt-8 flex flex-wrap justify-center gap-3">
+            {% if user.is_authenticated %}
+                <a href="{% url 'dashboard' %}" class="rounded-xl bg-amber-300 px-5 py-3 font-semibold text-slate-950 hover:bg-amber-200">Go to dashboard</a>
+            {% else %}
+                <a href="{% url 'login' %}" class="rounded-xl bg-amber-300 px-5 py-3 font-semibold text-slate-950 hover:bg-amber-200">Login</a>
+                <a href="{% url 'register' %}" class="rounded-xl border border-slate-700 px-5 py-3 font-semibold text-slate-200 hover:border-amber-300 hover:text-amber-200">Try for free</a>
+            {% endif %}
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}Privacy Policy | MedEcho AI{% endblock %}
+
+{% block content %}
+<section class="relative mx-auto max-w-4xl px-6 py-16 lg:py-24">
+    <div class="absolute top-0 left-0 h-[400px] w-[400px] -translate-y-1/4 -translate-x-1/4 rounded-full bg-cyan-600/10 blur-[120px] pointer-events-none"></div>
+
+    <div class="relative z-10 text-center mb-16">
+        <h1 class="text-4xl font-black tracking-tight text-white sm:text-5xl mb-6">Privacy Policy</h1>
+        <p class="text-slate-400">Last Updated: June 2026</p>
+    </div>
+
+    <div class="relative z-10 rounded-[2.5rem] border border-white/5 bg-slate-900/40 p-8 md:p-14 shadow-2xl backdrop-blur-xl">
+        <div class="prose prose-invert prose-lg max-w-none">
+            <p class="text-slate-300 leading-relaxed mb-8">
+                At MedEcho AI, we prioritize the protection of your personal data. This Privacy Policy outlines how we collect, use, and safeguard your information when you use our educational simulation platform.
+            </p>
+
+            <h3 class="text-xl font-bold text-white mt-10 mb-4">1. Information We Collect</h3>
+            <p class="text-slate-400 leading-relaxed mb-6">
+                <strong>Account Data:</strong> When you register, we collect your name, email address, professional title, and training level to customize your dashboard and simulation difficulty. <br>
+                <strong>Simulation Data:</strong> We store the chat transcripts, audio recordings, and feedback scores generated during your practice sessions to allow you to review your history.<br>
+                <strong>Payment Information:</strong> All payments are processed securely by our third-party provider (Stripe). We do not store or process your credit card information on our servers.
+            </p>
+
+            <h3 class="text-xl font-bold text-white mt-10 mb-4">2. How We Use Your Information</h3>
+            <p class="text-slate-400 leading-relaxed mb-6">
+                We use your data to provide and improve the MedEcho AI service, personalize the educational feedback you receive, process transactions, and send you important technical notices regarding your account.
+            </p>
+
+            <h3 class="text-xl font-bold text-white mt-10 mb-4">3. Third-Party AI Services</h3>
+            <p class="text-slate-400 leading-relaxed mb-6">
+                MedEcho AI relies on external APIs to generate content. When you engage in a consultation, your text inputs and audio recordings are transmitted to <strong>OpenAI</strong> (for natural language processing and grading) and <strong>ElevenLabs</strong> (for voice synthesis). These providers process the data solely to generate the response and do not use MedEcho API data to train their public models.
+            </p>
+
+            <h3 class="text-xl font-bold text-white mt-10 mb-4">4. Data Security & Retention</h3>
+            <p class="text-slate-400 leading-relaxed mb-6">
+                We implement industry-standard security measures to protect your account. Your practice history is retained so you can track your progress over time. You may request the deletion of your account and associated data at any time by contacting support.
+            </p>
+
+            <h3 class="text-xl font-bold text-white mt-10 mb-4">5. Contact Us</h3>
+            <p class="text-slate-400 leading-relaxed">
+                If you have questions or concerns about this Privacy Policy or your data rights, please contact us at <a href="mailto:support@medecho.ai" class="text-cyan-400 hover:text-cyan-300">support@medecho.ai</a>.
+            </p>
+        </div>
+    </div>
+</section>
+{% endblock %}

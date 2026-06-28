@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Checkout cancelled | MedEcho AI{% endblock %}
+{% block content %}
+<section class="relative mx-auto flex min-h-[calc(100vh-170px)] max-w-xl items-center justify-center px-6 py-12">
+    <div class="absolute top-1/2 left-1/2 h-[350px] w-[350px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-slate-600/10 blur-[100px] pointer-events-none"></div>
+    
+    <div class="relative z-10 w-full rounded-[2.5rem] border border-white/5 bg-slate-900/50 p-10 text-center shadow-2xl backdrop-blur-xl">
+        <div class="mx-auto flex h-16 w-16 items-center justify-center rounded-[1.5rem] border border-white/10 bg-slate-800/50 shadow-inner">
+            <svg class="h-8 w-8 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+        </div>
+        
+        <div class="mt-8 mb-3 inline-flex rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs font-bold uppercase tracking-wide text-slate-300">
+            Checkout cancelled
+        </div>
+        
+        <h1 class="mt-2 text-3xl font-black text-white tracking-tight">No payment was taken</h1>
+        <p class="mx-auto mt-4 max-w-sm text-base leading-relaxed text-slate-400">You can return to Billing to review plans or top up credits whenever you are ready.</p>
+        
+        <div class="mt-10">
+            <a href="{% url 'billing' %}" class="inline-flex items-center justify-center rounded-xl bg-white px-10 py-4 text-sm font-bold text-slate-900 transition-all hover:scale-[1.02] hover:bg-slate-200 hover:shadow-[0_0_20px_rgba(255,255,255,0.2)]">
+                Back to billing
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}

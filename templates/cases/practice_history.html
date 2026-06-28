@@ -1,0 +1,151 @@
+{% extends "base.html" %}
+
+{% block title %}Practice History | MedEcho AI{% endblock %}
+
+{% block content %}
+<section class="mx-auto max-w-7xl px-6 py-12">
+    <div class="mb-10 flex flex-wrap items-end justify-between gap-4">
+        <div>
+            <p class="text-sm font-semibold uppercase tracking-wide text-cyan-300">Practice history</p>
+            <h1 class="mt-2 text-3xl font-bold text-white">All consultations in one place</h1>
+            <p class="mt-3 max-w-3xl text-slate-400">
+                Search and filter your Practice cases and Live Consultation sessions from one unified history page.
+            </p>
+        </div>
+        <div class="flex flex-wrap gap-3">
+            <a href="{% url 'new_case' %}" class="rounded-xl bg-cyan-400 px-5 py-3 font-semibold text-slate-950 hover:bg-cyan-300">New practice case</a>
+            <a href="{% url 'real_consultation_intro' %}" class="rounded-xl bg-red-400 px-5 py-3 font-semibold text-slate-950 hover:bg-red-300">New live consultation</a>
+        </div>
+    </div>
+
+    <div class="mb-8 grid gap-6 md:grid-cols-2 lg:grid-cols-5">
+        <div class="rounded-2xl border border-slate-800 bg-slate-900 p-5"><p class="text-sm text-slate-400">Results</p><p class="mt-2 text-2xl font-bold text-white">{{ summary.total }}</p></div>
+        <div class="rounded-2xl border border-cyan-500/30 bg-cyan-950/20 p-5"><p class="text-sm text-cyan-200">Practice</p><p class="mt-2 text-2xl font-bold text-white">{{ summary.practice }}</p></div>
+        <div class="rounded-2xl border border-red-500/30 bg-red-950/20 p-5"><p class="text-sm text-red-200">Live</p><p class="mt-2 text-2xl font-bold text-white">{{ summary.live }}</p></div>
+        <div class="rounded-2xl border border-emerald-500/30 bg-emerald-950/20 p-5"><p class="text-sm text-emerald-200">Completed</p><p class="mt-2 text-2xl font-bold text-white">{{ summary.completed }}</p></div>
+        <div class="rounded-2xl border border-slate-800 bg-slate-900 p-5"><p class="text-sm text-slate-400">Live credits</p><p class="mt-2 text-2xl font-bold text-white">{{ usage.real_consultation_credits_remaining }}</p></div>
+    </div>
+
+    <form method="get" class="mb-8 rounded-3xl border border-slate-800 bg-slate-900 p-6">
+        <div class="grid gap-4 lg:grid-cols-6">
+            <div class="lg:col-span-2">
+                <label for="history-q" class="block text-sm font-medium text-slate-300">Search</label>
+                <input id="history-q" type="text" name="q" value="{{ filters.q }}" placeholder="Patient, complaint, diagnosis..." class="mt-2 w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-white outline-none focus:border-cyan-400">
+            </div>
+            <div>
+                <label for="history-mode" class="block text-sm font-medium text-slate-300">Mode</label>
+                <select id="history-mode" name="mode" class="mt-2 w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-white outline-none focus:border-cyan-400">
+                    <option value="all" {% if filters.mode == "all" %}selected{% endif %}>All</option>
+                    <option value="practice" {% if filters.mode == "practice" %}selected{% endif %}>Practice</option>
+                    <option value="live" {% if filters.mode == "live" %}selected{% endif %}>Live Consultation</option>
+                </select>
+            </div>
+            <div>
+                <label for="history-status" class="block text-sm font-medium text-slate-300">Status</label>
+                <select id="history-status" name="status" class="mt-2 w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-white outline-none focus:border-cyan-400">
+                    <option value="visible" {% if filters.status == "visible" %}selected{% endif %}>Active + completed</option>
+                    <option value="active" {% if filters.status == "active" %}selected{% endif %}>Active</option>
+                    <option value="completed" {% if filters.status == "completed" %}selected{% endif %}>Completed</option>
+                    <option value="draft" {% if filters.status == "draft" %}selected{% endif %}>Draft</option>
+                    <option value="deleted" {% if filters.status == "deleted" %}selected{% endif %}>Deleted</option>
+                </select>
+            </div>
+            <div>
+                <label for="history-specialty" class="block text-sm font-medium text-slate-300">Specialty</label>
+                <select id="history-specialty" name="specialty" class="mt-2 w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-white outline-none focus:border-cyan-400">
+                    <option value="all" {% if filters.specialty == "all" %}selected{% endif %}>All</option>
+                    {% for value, label in specialty_options %}<option value="{{ value }}" {% if filters.specialty == value %}selected{% endif %}>{{ label }}</option>{% endfor %}
+                </select>
+            </div>
+            <div>
+                <label for="history-order" class="block text-sm font-medium text-slate-300">Order</label>
+                <select id="history-order" name="order" class="mt-2 w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-white outline-none focus:border-cyan-400">
+                    <option value="newest" {% if filters.order == "newest" %}selected{% endif %}>Newest first</option>
+                    <option value="oldest" {% if filters.order == "oldest" %}selected{% endif %}>Oldest first</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="mt-4 grid gap-4 lg:grid-cols-6">
+            <div class="lg:col-span-2">
+                <label for="history-level" class="block text-sm font-medium text-slate-300">Training level</label>
+                <select id="history-level" name="level" class="mt-2 w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-white outline-none focus:border-cyan-400">
+                    <option value="all" {% if filters.level == "all" %}selected{% endif %}>All</option>
+                    {% for value, label in level_options %}<option value="{{ value }}" {% if filters.level == value %}selected{% endif %}>{{ label }}</option>{% endfor %}
+                </select>
+            </div>
+            <div class="flex items-end gap-3 lg:col-span-4">
+                <button type="submit" class="rounded-xl bg-cyan-400 px-5 py-3 font-semibold text-slate-950 hover:bg-cyan-300">Apply filters</button>
+                <a href="{% url 'case_history' %}" class="rounded-xl border border-slate-700 px-5 py-3 font-semibold text-slate-200 hover:border-cyan-400 hover:text-cyan-300">Reset</a>
+            </div>
+        </div>
+    </form>
+
+    <div class="space-y-4">
+        {% for item in history_items %}
+            {% with clinical_case=item.clinical_case session=item.latest_session %}
+                <div class="rounded-3xl border border-slate-800 bg-slate-900 p-6">
+                    <div class="flex flex-wrap items-start justify-between gap-4">
+                        <div class="max-w-3xl">
+                            <div class="flex flex-wrap items-center gap-3">
+                                {% if item.mode == "live" %}
+                                    <span class="rounded-full bg-red-500/10 px-3 py-1 text-xs font-semibold text-red-300">Live Consultation</span>
+                                {% else %}
+                                    <span class="rounded-full bg-cyan-500/10 px-3 py-1 text-xs font-semibold text-cyan-300">Practice</span>
+                                {% endif %}
+
+                                {% if clinical_case.status == "completed" %}
+                                    <span class="rounded-full bg-emerald-500/10 px-3 py-1 text-xs font-semibold text-emerald-300">Completed</span>
+                                {% elif clinical_case.status == "active" %}
+                                    <span class="rounded-full bg-cyan-500/10 px-3 py-1 text-xs font-semibold text-cyan-300">Active</span>
+                                {% elif clinical_case.status == "deleted" %}
+                                    <span class="rounded-full bg-red-500/10 px-3 py-1 text-xs font-semibold text-red-300">Deleted</span>
+                                {% else %}
+                                    <span class="rounded-full bg-slate-500/10 px-3 py-1 text-xs font-semibold text-slate-300">{{ clinical_case.get_status_display }}</span>
+                                {% endif %}
+
+                                {% if session %}
+                                    <span class="rounded-full bg-slate-800 px-3 py-1 text-xs font-semibold text-slate-300">Session: {{ session.get_status_display }}</span>
+                                {% endif %}
+                            </div>
+
+                            <h2 class="mt-3 text-xl font-semibold text-white">{{ clinical_case.presenting_complaint|default:"Clinical case" }}</h2>
+                            <p class="mt-2 text-sm text-slate-400">{{ clinical_case.patient_name }}, {{ clinical_case.patient_age }} years old · {{ clinical_case.created_at }}</p>
+                            <p class="mt-2 text-sm text-slate-500">{{ item.specialty_label }} · {{ item.level_label }}</p>
+
+                            {% if session %}
+                                <p class="mt-2 text-sm text-slate-500">Started: {{ session.started_at|default:"Not started" }} · Ended: {{ session.ended_at|default:"Not ended" }}</p>
+                            {% endif %}
+                        </div>
+
+                        <div class="flex flex-wrap gap-3">
+                            {% if session and session.status == "setup" %}
+                                <a href="{% url 'real_consultation_setup' session.id %}" class="rounded-xl border border-red-400 px-4 py-2 text-sm font-semibold text-red-200 hover:bg-red-400 hover:text-slate-950">Continue setup</a>
+                            {% elif session and session.status == "active" %}
+                                <a href="{% url 'real_consultation_realtime' session.id %}" class="rounded-xl border border-red-400 px-4 py-2 text-sm font-semibold text-red-200 hover:bg-red-400 hover:text-slate-950">Resume live room</a>
+                            {% endif %}
+
+                            <a href="{% url 'case_chat' clinical_case.id %}" class="rounded-xl border border-cyan-400 px-4 py-2 text-sm font-semibold text-cyan-200 hover:bg-cyan-400 hover:text-slate-950">
+                                {% if clinical_case.status == "completed" %}Transcript{% else %}Open case{% endif %}
+                            </a>
+
+                            {% if clinical_case.status == "completed" %}
+                                <a href="{% url 'case_feedback' clinical_case.id %}" class="rounded-xl border border-emerald-400 px-4 py-2 text-sm font-semibold text-emerald-200 hover:bg-emerald-400 hover:text-slate-950">Feedback</a>
+                                <a href="{% url 'feedback_pdf' clinical_case.id %}" class="rounded-xl border border-slate-600 px-4 py-2 text-sm font-semibold text-slate-200 hover:border-emerald-400 hover:text-emerald-300">PDF</a>
+                            {% endif %}
+
+                            {% if clinical_case.status != "deleted" %}
+                                <a href="{% url 'delete_case' clinical_case.id %}" class="rounded-xl border border-red-400 px-4 py-2 text-sm font-semibold text-red-200 hover:bg-red-400 hover:text-slate-950">Delete</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endwith %}
+        {% empty %}
+            <div class="rounded-3xl border border-slate-800 bg-slate-900 p-8 text-slate-300">
+                No consultations match your filters.
+            </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

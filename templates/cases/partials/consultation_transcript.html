@@ -1,0 +1,36 @@
+<section class="mt-8 rounded-3xl border border-slate-800 bg-slate-900 p-6">
+    <div class="flex flex-wrap items-center justify-between gap-4">
+        <div>
+            <h2 class="text-xl font-semibold text-white">Consultation transcript</h2>
+            <p class="mt-2 text-sm text-slate-400">Saved doctor and patient turns from the consultation.</p>
+        </div>
+    </div>
+
+    <div class="mt-6 space-y-4">
+        {% for message in clinical_case.messages.all %}
+            {% if message.role == "doctor" %}
+                <div class="ml-auto max-w-3xl rounded-2xl bg-cyan-400 px-5 py-4 text-slate-950">
+                    <p class="text-xs font-semibold uppercase tracking-wide text-slate-700">Doctor</p>
+                    <p class="mt-2 whitespace-pre-line">{{ message.content }}</p>
+                </div>
+            {% elif message.role == "patient" %}
+                <div class="max-w-3xl rounded-2xl border border-slate-700 bg-slate-950 px-5 py-4 text-slate-100">
+                    <p class="text-xs font-semibold uppercase tracking-wide text-cyan-300">Patient</p>
+                    <p class="mt-2 whitespace-pre-line">{{ message.content }}</p>
+                </div>
+            {% elif message.role == "investigation" %}
+                <div class="max-w-3xl rounded-2xl border border-purple-500/30 bg-purple-950/20 px-5 py-4 text-slate-100">
+                    <p class="text-xs font-semibold uppercase tracking-wide text-purple-300">Investigation</p>
+                    <p class="mt-2 whitespace-pre-line">{{ message.content }}</p>
+                </div>
+            {% else %}
+                <div class="max-w-3xl rounded-2xl border border-slate-800 bg-slate-800/70 px-5 py-4 text-slate-300">
+                    <p class="text-xs font-semibold uppercase tracking-wide text-slate-400">{{ message.get_role_display }}</p>
+                    <p class="mt-2 whitespace-pre-line">{{ message.content }}</p>
+                </div>
+            {% endif %}
+        {% empty %}
+            <div class="rounded-2xl border border-slate-800 bg-slate-950 p-5 text-slate-400">No consultation transcript available yet.</div>
+        {% endfor %}
+    </div>
+</section>

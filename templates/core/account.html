@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+
+{% block title %}Account | MedEcho AI{% endblock %}
+
+{% block content %}
+<section class="mx-auto max-w-5xl px-6 py-12">
+    <div class="mb-10 border-b border-white/5 pb-8">
+        <p class="text-sm font-semibold uppercase tracking-wide text-cyan-300">Account Settings</p>
+        <h1 class="mt-2 text-3xl font-black text-white md:text-4xl">Profile & Preferences</h1>
+        <p class="mt-4 max-w-2xl text-lg text-slate-400">Update your personal details and training level to ensure cases and feedback are tailored correctly to your stage.</p>
+    </div>
+
+    <div class="grid gap-8 lg:grid-cols-3">
+        <!-- Form Section -->
+        <div class="rounded-[2rem] border border-white/5 bg-slate-900/40 p-8 shadow-2xl backdrop-blur-xl lg:col-span-2">
+            <h2 class="text-2xl font-bold text-white flex items-center gap-3">
+                <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-cyan-500/10 text-cyan-400"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg></div>
+                Personal Details
+            </h2>
+            
+            <form method="post" class="mt-8 space-y-6">
+                {% csrf_token %}
+                
+                <div class="grid gap-6 md:grid-cols-2">
+                    <div class="space-y-2">
+                        <label for="{{ form.full_name.id_for_label }}" class="block text-sm font-semibold text-slate-300">Full name</label>
+                        {{ form.full_name }}
+                        {% for error in form.full_name.errors %}<p class="mt-2 text-sm font-medium text-red-400">{{ error }}</p>{% endfor %}
+                    </div>
+                    
+                    <div class="space-y-2">
+                        <label for="{{ form.title.id_for_label }}" class="block text-sm font-semibold text-slate-300">Professional title</label>
+                        {{ form.title }}
+                        <p class="mt-2 text-xs text-slate-500">Choose 'Dr' to show "Welcome back Dr [Last Name]" on the dashboard.</p>
+                        {% for error in form.title.errors %}<p class="mt-2 text-sm font-medium text-red-400">{{ error }}</p>{% endfor %}
+                    </div>
+                </div>
+
+                <div class="grid gap-6 md:grid-cols-2">
+                    <div class="space-y-2">
+                        <label for="{{ form.email.id_for_label }}" class="block text-sm font-semibold text-slate-300">Email address</label>
+                        {{ form.email }}
+                        {% for error in form.email.errors %}<p class="mt-2 text-sm font-medium text-red-400">{{ error }}</p>{% endfor %}
+                    </div>
+                    
+                    <div class="space-y-2">
+                        <label for="{{ form.phone_number.id_for_label }}" class="block text-sm font-semibold text-slate-300">Phone number</label>
+                        {{ form.phone_number }}
+                        {% for error in form.phone_number.errors %}<p class="mt-2 text-sm font-medium text-red-400">{{ error }}</p>{% endfor %}
+                    </div>
+                </div>
+
+                <div class="space-y-2 pt-2 border-t border-white/5">
+                    <label for="{{ form.level.id_for_label }}" class="block text-sm font-semibold text-slate-300 mt-4">Training level / Profession</label>
+                    {{ form.level }}
+                    {% for error in form.level.errors %}<p class="mt-2 text-sm font-medium text-red-400">{{ error }}</p>{% endfor %}
+                </div>
+                
+                <div class="pt-6">
+                    <button type="submit" class="w-full sm:w-auto rounded-xl bg-white px-8 py-3.5 text-sm font-bold text-slate-900 shadow-lg transition-all hover:scale-105 hover:bg-slate-200">
+                        Save Changes
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Sidebar -->
+        <aside class="space-y-6">
+            <div class="rounded-3xl border border-white/5 bg-slate-900/40 p-6 backdrop-blur-md">
+                <h2 class="text-lg font-bold text-white flex items-center gap-2">
+                    <svg class="w-5 h-5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    Account Status
+                </h2>
+                <div class="mt-6 space-y-4 text-sm text-slate-300">
+                    <div class="flex justify-between items-center border-b border-white/5 pb-3">
+                        <span class="text-slate-500 font-medium">Greeting</span>
+                        <span class="font-bold text-white truncate max-w-[150px]" title="Welcome back {{ profile.dashboard_greeting_name }}">{{ profile.dashboard_greeting_name }}</span>
+                    </div>
+                    <div class="flex justify-between items-center border-b border-white/5 pb-3">
+                        <span class="text-slate-500 font-medium">Plan</span>
+                        <span class="rounded-full bg-cyan-500/10 px-2.5 py-1 text-xs font-bold uppercase tracking-wider text-cyan-400 border border-cyan-500/20">{{ profile.get_plan_display }}</span>
+                    </div>
+                    <div class="flex justify-between items-center border-b border-white/5 pb-3">
+                        <span class="text-slate-500 font-medium">Practice Credits</span>
+                        <span class="font-bold text-white">{{ usage.payg_credits_remaining }}</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-slate-500 font-medium">Live Credits</span>
+                        <span class="font-bold text-red-400">{{ usage.real_consultation_credits_remaining }}</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="rounded-3xl border border-emerald-500/20 bg-emerald-950/10 p-6 backdrop-blur-md">
+                <h2 class="text-lg font-bold text-white flex items-center gap-2">
+                    <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path></svg>
+                    Billing Management
+                </h2>
+                <p class="mt-3 text-sm leading-relaxed text-slate-400">Upgrade your plan, top up credits, and download past invoices from the Billing portal.</p>
+                <a href="{% url 'billing' %}" class="mt-6 inline-flex w-full items-center justify-center rounded-xl border border-emerald-500/50 bg-emerald-500/10 px-4 py-3 text-sm font-bold text-emerald-400 transition-colors hover:bg-emerald-500 hover:text-slate-950">
+                    Open Billing Portal
+                </a>
+            </div>
+        </aside>
+    </div>
+</section>
+{% endblock %}

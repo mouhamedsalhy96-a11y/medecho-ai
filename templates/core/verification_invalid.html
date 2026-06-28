@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Invalid Verification Link | MedEcho AI{% endblock %}
+
+{% block content %}
+<section class="relative mx-auto flex min-h-[calc(100vh-73px)] max-w-xl items-center justify-center px-6 py-16">
+    <div class="absolute top-1/2 left-1/2 h-[300px] w-[300px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-red-600/10 blur-[100px] pointer-events-none"></div>
+
+    <div class="relative z-10 w-full rounded-[2.5rem] border border-red-500/20 bg-red-950/10 p-10 text-center shadow-2xl backdrop-blur-xl">
+        <div class="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-red-500/10 border border-red-500/20">
+            <svg class="h-8 w-8 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+        </div>
+
+        <div class="mb-4 inline-flex rounded-full bg-red-500/10 px-3 py-1 text-xs font-bold uppercase tracking-wide text-red-400">
+            Invalid Link
+        </div>
+
+        <h1 class="mt-2 text-3xl font-black text-white">This verification link is invalid or expired</h1>
+        <p class="mt-4 text-slate-300 leading-relaxed">For your security, verification links expire after a short period. Please request a new verification email to continue setting up your account.</p>
+
+        <div class="mt-10">
+            <a href="{% url 'resend_verification' %}" class="inline-flex items-center justify-center rounded-xl bg-red-500 px-8 py-3.5 text-sm font-bold text-white transition-all hover:scale-[1.02] hover:bg-red-400 hover:shadow-[0_0_20px_rgba(239,68,68,0.3)]">
+                Resend Verification Email
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}

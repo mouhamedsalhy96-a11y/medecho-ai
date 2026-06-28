@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}Case Feedback | MedEcho AI{% endblock %}
+
+{% block content %}
+<section class="mx-auto max-w-7xl px-6 py-10">
+    <div class="mb-8 flex flex-wrap items-start justify-between gap-4">
+        <div><p class="text-sm font-semibold uppercase tracking-wide text-cyan-300">OSCE feedback</p><h1 class="mt-2 text-3xl font-bold text-white">{{ clinical_case.presenting_complaint }}</h1><p class="mt-2 text-slate-400">Patient: {{ clinical_case.patient_name }}, {{ clinical_case.patient_age }} years old</p></div>
+        <div class="flex flex-wrap gap-3"><a href="{% url 'feedback_pdf' clinical_case.id %}" class="rounded-xl bg-cyan-400 px-5 py-3 font-semibold text-slate-950 hover:bg-cyan-300">Download PDF</a><a href="{% url 'case_history' %}" class="rounded-xl border border-slate-700 px-5 py-3 font-semibold text-slate-200 hover:border-cyan-400 hover:text-cyan-300">Back to history</a></div>
+    </div>
+
+    <div class="grid gap-6 md:grid-cols-3">
+        <div class="rounded-3xl border border-cyan-500/30 bg-cyan-950/20 p-6"><p class="text-sm text-cyan-200">Overall score</p><p class="mt-2 text-4xl font-bold text-white">{% widthratio clinical_case.overall_score|default:0 100 10 %}/10</p></div>
+        <div class="rounded-3xl border border-slate-800 bg-slate-900 p-6"><p class="text-sm text-slate-400">Completed</p><p class="mt-2 text-lg font-semibold text-white">{{ clinical_case.completed_at|default:"Not recorded" }}</p></div>
+        <div class="rounded-3xl border border-slate-800 bg-slate-900 p-6"><p class="text-sm text-slate-400">Expected diagnosis</p><p class="mt-2 text-lg font-semibold text-white">{{ clinical_case.hidden_diagnosis }}</p></div>
+    </div>
+
+    <div class="mt-8 rounded-3xl border border-slate-800 bg-slate-900 p-6">
+        <h2 class="text-xl font-semibold text-white">Score breakdown</h2>
+        <div class="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-5">
+            <div class="rounded-2xl border border-slate-800 bg-slate-950 p-4"><p class="text-xs uppercase tracking-wide text-slate-500">Data gathering</p><p class="mt-2 text-2xl font-bold text-white">{% widthratio clinical_case.data_gathering_score|default:0 100 10 %}/10</p></div>
+            <div class="rounded-2xl border border-slate-800 bg-slate-950 p-4"><p class="text-xs uppercase tracking-wide text-slate-500">Reasoning</p><p class="mt-2 text-2xl font-bold text-white">{% widthratio clinical_case.clinical_reasoning_score|default:0 100 10 %}/10</p></div>
+            <div class="rounded-2xl border border-slate-800 bg-slate-950 p-4"><p class="text-xs uppercase tracking-wide text-slate-500">Management</p><p class="mt-2 text-2xl font-bold text-white">{% widthratio clinical_case.management_score|default:0 100 10 %}/10</p></div>
+            <div class="rounded-2xl border border-slate-800 bg-slate-950 p-4"><p class="text-xs uppercase tracking-wide text-slate-500">Communication</p><p class="mt-2 text-2xl font-bold text-white">{% widthratio clinical_case.ips_score|default:0 100 10 %}/10</p></div>
+            <div class="rounded-2xl border border-slate-800 bg-slate-950 p-4"><p class="text-xs uppercase tracking-wide text-slate-500">Safety-netting</p><p class="mt-2 text-2xl font-bold text-white">{% widthratio clinical_case.safety_netting_score|default:0 100 10 %}/10</p></div>
+        </div>
+    </div>
+
+    <div class="mt-8 grid gap-6 lg:grid-cols-2">
+        <div class="rounded-3xl border border-slate-800 bg-slate-900 p-6"><h2 class="text-lg font-semibold text-white">Overall feedback</h2><p class="mt-3 whitespace-pre-line text-slate-300">{{ clinical_case.overall_feedback|default:"Not available." }}</p></div>
+        <div class="rounded-3xl border border-slate-800 bg-slate-900 p-6"><h2 class="text-lg font-semibold text-white">Data gathering</h2><p class="mt-3 whitespace-pre-line text-slate-300">{{ clinical_case.data_gathering_feedback|default:"Not available." }}</p></div>
+        <div class="rounded-3xl border border-slate-800 bg-slate-900 p-6"><h2 class="text-lg font-semibold text-white">Clinical reasoning</h2><p class="mt-3 whitespace-pre-line text-slate-300">{{ clinical_case.clinical_reasoning_feedback|default:"Not available." }}</p></div>
+        <div class="rounded-3xl border border-slate-800 bg-slate-900 p-6"><h2 class="text-lg font-semibold text-white">Management</h2><p class="mt-3 whitespace-pre-line text-slate-300">{{ clinical_case.management_feedback|default:"Not available." }}</p></div>
+        <div class="rounded-3xl border border-slate-800 bg-slate-900 p-6"><h2 class="text-lg font-semibold text-white">Communication</h2><p class="mt-3 whitespace-pre-line text-slate-300">{{ clinical_case.ips_feedback|default:"Not available." }}</p></div>
+        <div class="rounded-3xl border border-slate-800 bg-slate-900 p-6"><h2 class="text-lg font-semibold text-white">Safety-netting</h2><p class="mt-3 whitespace-pre-line text-slate-300">{{ clinical_case.safety_netting_feedback|default:"Not available." }}</p></div>
+    </div>
+
+    <div class="mt-8 grid gap-6 lg:grid-cols-3">
+        <div class="rounded-3xl border border-red-500/30 bg-red-950/20 p-6"><h2 class="text-lg font-semibold text-white">Critical misses</h2><p class="mt-3 whitespace-pre-line text-slate-300">{{ clinical_case.critical_misses|default:"None recorded." }}</p></div>
+        <div class="rounded-3xl border border-emerald-500/30 bg-emerald-950/20 p-6"><h2 class="text-lg font-semibold text-white">Strengths</h2><p class="mt-3 whitespace-pre-line text-slate-300">{{ clinical_case.strengths|default:"None recorded." }}</p></div>
+        <div class="rounded-3xl border border-cyan-500/30 bg-cyan-950/20 p-6"><h2 class="text-lg font-semibold text-white">Improvement plan</h2><p class="mt-3 whitespace-pre-line text-slate-300">{{ clinical_case.improvement_plan|default:"None recorded." }}</p></div>
+    </div>
+
+    {% include "cases/partials/consultation_transcript.html" %}
+</section>
+{% endblock %}

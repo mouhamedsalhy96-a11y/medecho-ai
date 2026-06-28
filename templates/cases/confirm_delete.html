@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Delete Case | MedEcho AI{% endblock %}
+{% block content %}
+<section class="relative mx-auto flex min-h-[calc(100vh-200px)] max-w-2xl items-center justify-center px-6 py-16">
+    <div class="absolute top-0 right-0 h-96 w-96 -translate-y-1/2 translate-x-1/4 rounded-full bg-red-600/10 blur-[100px] pointer-events-none"></div>
+    
+    <div class="relative z-10 w-full rounded-[2.5rem] border border-red-500/20 bg-slate-900/80 p-10 shadow-2xl backdrop-blur-xl">
+        <div class="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-red-500/10 text-red-400 border border-red-500/20">
+            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+        </div>
+        
+        <h1 class="text-3xl font-black text-white">Delete this case?</h1>
+        <p class="mt-4 text-slate-300 leading-relaxed">This permanently removes the case and all associated messages from your history. This action cannot be undone.</p>
+
+        <div class="mt-8 rounded-2xl border border-white/5 bg-slate-950 p-6">
+            <p class="font-bold text-white text-lg">{{ clinical_case.presenting_complaint|default:"Clinical case" }}</p>
+            <p class="mt-1 text-sm text-slate-400">{{ clinical_case.patient_name }}, {{ clinical_case.patient_age }} years old</p>
+        </div>
+
+        <form method="post" class="mt-10 flex flex-wrap gap-3">
+            {% csrf_token %}
+            <button type="submit" class="rounded-xl bg-red-500 px-8 py-3.5 font-bold text-white transition-all hover:scale-[1.02] hover:bg-red-400 hover:shadow-[0_0_15px_rgba(239,68,68,0.3)]">Delete case</button>
+            <a href="{% url 'case_history' %}" class="rounded-xl border border-white/10 bg-white/5 px-8 py-3.5 font-bold text-slate-300 transition hover:bg-white/10 hover:text-white">Cancel</a>
+        </form>
+    </div>
+</section>
+{% endblock %}

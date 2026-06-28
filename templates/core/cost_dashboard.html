@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% block title %}Cost Dashboard | MedEcho AI{% endblock %}
+{% block content %}
+<section class="relative mx-auto max-w-7xl px-6 py-12 lg:py-20">
+    <div class="absolute top-0 right-1/4 h-96 w-96 -translate-y-1/2 translate-x-1/3 rounded-full bg-cyan-600/10 blur-[120px] pointer-events-none"></div>
+    <div class="absolute bottom-0 left-1/4 h-64 w-64 -translate-y-1/2 -translate-x-1/4 rounded-full bg-purple-600/10 blur-[100px] pointer-events-none"></div>
+
+    <div class="relative z-10 mb-10 flex flex-wrap items-end justify-between gap-6 border-b border-white/5 pb-8">
+        <div>
+            <div class="mb-4 inline-flex items-center gap-2 rounded-full border border-cyan-500/30 bg-cyan-500/10 px-3 py-1 text-xs font-bold uppercase tracking-wide text-cyan-300 backdrop-blur-sm">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                Superuser only
+            </div>
+            <h1 class="text-3xl font-black text-white md:text-5xl">Live Consultation unit economics</h1>
+            <p class="mt-4 text-lg text-slate-400">Private estimate of revenue, costs and margin.</p>
+        </div>
+        <a href="{% url 'billing' %}" class="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-6 py-3.5 text-sm font-bold text-slate-300 transition-all hover:bg-white/10 hover:text-white">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+            Back to billing
+        </a>
+    </div>
+
+    <div class="relative z-10 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+        <div class="rounded-3xl border border-white/5 bg-slate-900/40 p-8 shadow-xl backdrop-blur-md transition-all hover:-translate-y-1 hover:border-slate-500/30">
+            <p class="text-sm font-medium text-slate-400">Net per live credit</p>
+            <p class="mt-3 text-4xl font-black text-white">{{ net_revenue_per_live_credit }}</p>
+        </div>
+        <div class="rounded-3xl border border-red-500/20 bg-red-950/10 p-8 shadow-xl backdrop-blur-md transition-all hover:-translate-y-1 hover:border-red-500/30">
+            <p class="text-sm font-medium text-red-300">Month cost</p>
+            <p class="mt-3 text-4xl font-black text-white">{{ total_month_cost }}</p>
+        </div>
+        <div class="rounded-3xl border border-emerald-500/20 bg-emerald-950/10 p-8 shadow-xl backdrop-blur-md transition-all hover:-translate-y-1 hover:border-emerald-500/30">
+            <p class="text-sm font-medium text-emerald-400">Month margin</p>
+            <p class="mt-3 text-4xl font-black text-white">{{ margin_month }}</p>
+        </div>
+        <div class="rounded-3xl border border-cyan-500/20 bg-cyan-950/10 p-8 shadow-xl backdrop-blur-md transition-all hover:-translate-y-1 hover:border-cyan-500/30">
+            <p class="text-sm font-medium text-cyan-400">Total Sessions</p>
+            <p class="mt-3 text-4xl font-black text-white">{{ month_session_count }}</p>
+        </div>
+    </div>
+
+    <div class="relative z-10 mt-12 rounded-[2rem] border border-white/5 bg-slate-900/50 p-8 shadow-2xl backdrop-blur-xl">
+        <h2 class="text-2xl font-bold text-white flex items-center gap-3 border-b border-white/5 pb-4 mb-6">
+            <svg class="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+            Recent sessions
+        </h2>
+        <div class="space-y-4">
+            {% for row in session_rows %}
+                <div class="rounded-2xl border border-white/5 bg-slate-950/50 p-6 transition-all hover:border-white/10 hover:bg-slate-900">
+                    <div class="flex flex-wrap items-center justify-between gap-6">
+                        <div>
+                            <p class="text-lg font-bold text-white">{{ row.clinical_case.presenting_complaint|default:"Live Consultation" }}</p>
+                            <div class="mt-2 flex items-center gap-4 text-sm font-medium text-slate-500">
+                                <span>Turns: <span class="text-slate-300">{{ row.turn_count }}</span></span>
+                                <span>&bull;</span>
+                                <span>Charged: <span class="text-slate-300">{{ row.credit_charged }}</span></span>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">Est. Cost</p>
+                            <p class="text-2xl font-black text-white font-mono tracking-tight">{{ row.estimated_total_cost_display }}</p>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <div class="flex flex-col items-center justify-center rounded-2xl border border-dashed border-white/10 bg-slate-950/30 py-16 text-center">
+                    <svg class="w-8 h-8 text-slate-600 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4M8 16l-4-4 4-4"></path></svg>
+                    <p class="text-sm font-medium text-slate-400">No sessions recorded yet.</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

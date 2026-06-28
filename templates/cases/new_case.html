@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+{% block title %}New Practice Case | MedEcho AI{% endblock %}
+
+{% block content %}
+<section class="relative mx-auto max-w-5xl px-6 py-12">
+    <div class="mb-10">
+        <p class="text-sm font-semibold uppercase tracking-wide text-cyan-300">Practice mode</p>
+        <h1 class="mt-2 text-3xl font-black text-white md:text-4xl">Generate a practice case</h1>
+        <p class="mt-4 max-w-2xl text-lg text-slate-400">
+            Start a simulated consultation with a virtual patient. Choose your specialty and the professional level you want to practise at.
+        </p>
+    </div>
+
+    <div class="grid gap-8 lg:grid-cols-3">
+        <div class="rounded-[2rem] border border-white/10 bg-slate-900/60 p-8 shadow-2xl backdrop-blur-xl lg:col-span-2">
+            <h2 class="text-2xl font-bold text-white flex items-center gap-3">
+                <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-cyan-500/20 text-cyan-400"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg></div>
+                Case Settings
+            </h2>
+
+            <form method="post" class="mt-8 space-y-6">
+                {% csrf_token %}
+
+                <div class="space-y-2">
+                    <label for="{{ form.specialty.id_for_label }}" class="block text-sm font-semibold text-slate-300">Specialty</label>
+                    <div class="relative">
+                        {{ form.specialty }}
+                    </div>
+                    {% for error in form.specialty.errors %}<p class="mt-2 text-sm font-medium text-red-400">{{ error }}</p>{% endfor %}
+                </div>
+
+                <div class="space-y-2 pt-2">
+                    <label for="{{ form.difficulty.id_for_label }}" class="block text-sm font-semibold text-slate-300">Training level</label>
+                    <div class="relative">
+                        {{ form.difficulty }}
+                    </div>
+                    <p class="text-xs text-slate-500 mt-2">Choose the learner role or stage the case should be matched to (e.g., Medical Student vs. Registrar).</p>
+                    {% for error in form.difficulty.errors %}<p class="mt-2 text-sm font-medium text-red-400">{{ error }}</p>{% endfor %}
+                </div>
+
+                <div class="pt-6">
+                    <button type="submit" class="w-full sm:w-auto rounded-xl bg-gradient-to-r from-cyan-400 to-blue-500 px-8 py-3.5 text-sm font-bold text-white shadow-lg shadow-cyan-500/25 transition-all hover:scale-105 hover:brightness-110">
+                        Generate Case Let's Go
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <aside class="space-y-6">
+            <div class="rounded-3xl border border-white/5 bg-slate-900/40 p-6 backdrop-blur-md">
+                <h2 class="text-lg font-bold text-white flex items-center gap-2">
+                    <svg class="w-5 h-5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    Your Usage
+                </h2>
+                <div class="mt-6 space-y-5 text-sm">
+                    <div class="flex justify-between items-end border-b border-white/5 pb-3">
+                        <p class="text-slate-400 font-medium">Included text cases/month</p>
+                        <p class="text-xl font-black text-white">{{ usage.text_cases_included_used }}/<span class="text-slate-500">{{ usage.text_case_limit }}</span></p>
+                    </div>
+                    <div class="flex justify-between items-end border-b border-white/5 pb-3">
+                        <p class="text-slate-400 font-medium">Extra text cases used</p>
+                        <p class="text-xl font-black text-white">{{ usage.text_cases_extra_used }}</p>
+                    </div>
+                    <div class="flex justify-between items-end">
+                        <p class="text-slate-400 font-medium">Practice credits remaining</p>
+                        <p class="text-xl font-black text-cyan-400">{{ usage.payg_credits_remaining }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="rounded-3xl border border-cyan-500/20 bg-cyan-950/20 p-6 shadow-inner backdrop-blur-md">
+                <h2 class="text-sm font-bold uppercase tracking-wider text-cyan-300">Who it is for</h2>
+                <p class="mt-3 text-sm leading-relaxed text-slate-300">Designed for doctors, medical students, nurses, midwives, physiotherapists, paramedics, pharmacists and other healthcare learners.</p>
+            </div>
+
+            <div class="rounded-3xl border border-slate-700/50 bg-slate-800/30 p-6 backdrop-blur-md">
+                <h2 class="text-sm font-bold uppercase tracking-wider text-slate-400">Safety note</h2>
+                <p class="mt-3 text-sm leading-relaxed text-slate-400">Cases are fictional educational simulations. They are not for diagnosis, treatment decisions or real patient care.</p>
+            </div>
+        </aside>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}Real Consultation Setup | MedEcho AI{% endblock %}
+
+{% block content %}
+<section class="mx-auto max-w-4xl px-6 py-12">
+    <div class="rounded-3xl border border-red-500/30 bg-red-950/20 p-8">
+        <p class="text-sm font-semibold uppercase tracking-wide text-red-300">Microphone setup</p>
+        <h1 class="mt-2 text-3xl font-bold text-white">Ready before the timer starts</h1>
+        <p class="mt-4 text-slate-300">
+            In this foundation phase, this page prepares the timed flow. Full live speech/transcription will be added later.
+        </p>
+
+        <div class="mt-8 grid gap-4 md:grid-cols-3">
+            <div class="rounded-2xl border border-slate-800 bg-slate-950 p-5">
+                <p class="font-semibold text-white">1. Check microphone</p>
+                <p class="mt-2 text-sm text-slate-400">Make sure your browser can access your microphone.</p>
+            </div>
+            <div class="rounded-2xl border border-slate-800 bg-slate-950 p-5">
+                <p class="font-semibold text-white">2. Read the stem</p>
+                <p class="mt-2 text-sm text-slate-400">Patient: {{ clinical_case.patient_name }}, {{ clinical_case.patient_age }}.</p>
+            </div>
+            <div class="rounded-2xl border border-slate-800 bg-slate-950 p-5">
+                <p class="font-semibold text-white">3. Start timer</p>
+                <p class="mt-2 text-sm text-slate-400">One Real Consultation credit is charged when you start.</p>
+            </div>
+        </div>
+
+        <div class="mt-8 rounded-2xl border border-slate-800 bg-slate-950 p-5">
+            <p class="text-sm text-slate-400">Presenting complaint</p>
+            <p class="mt-1 text-xl font-semibold text-white">{{ clinical_case.presenting_complaint }}</p>
+        </div>
+
+        <form method="post" class="mt-8 flex flex-wrap gap-3">
+            {% csrf_token %}
+            <button type="submit" class="rounded-xl bg-red-400 px-5 py-3 font-semibold text-slate-950 hover:bg-red-300">
+                Start Consultation
+            </button>
+            <a href="{% url 'dashboard' %}" class="rounded-xl border border-slate-700 px-5 py-3 font-semibold text-slate-200 hover:border-cyan-400 hover:text-cyan-300">
+                Back to dashboard
+            </a>
+        </form>
+    </div>
+</section>
+{% endblock %}

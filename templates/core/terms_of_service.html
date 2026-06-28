@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block title %}Terms of Service | MedEcho AI{% endblock %}
+
+{% block content %}
+<section class="relative mx-auto max-w-4xl px-6 py-16 lg:py-24">
+    <div class="absolute top-0 right-0 h-[400px] w-[400px] -translate-y-1/4 translate-x-1/4 rounded-full bg-purple-600/10 blur-[120px] pointer-events-none"></div>
+
+    <div class="relative z-10 text-center mb-16">
+        <h1 class="text-4xl font-black tracking-tight text-white sm:text-5xl mb-6">Terms of Service</h1>
+        <p class="text-slate-400">Last Updated: June 2026</p>
+    </div>
+
+    <div class="relative z-10 rounded-[2.5rem] border border-white/5 bg-slate-900/40 p-8 md:p-14 shadow-2xl backdrop-blur-xl">
+        <div class="prose prose-invert prose-lg max-w-none">
+            <p class="text-slate-300 leading-relaxed mb-8">
+                Welcome to MedEcho AI. By registering for an account or accessing our platform, you agree to be bound by these Terms of Service. Please read them carefully.
+            </p>
+
+            <h3 class="text-xl font-bold text-white mt-10 mb-4">1. Educational Purpose Only</h3>
+            <p class="text-slate-400 leading-relaxed mb-6">
+                MedEcho AI is an educational simulation tool designed to assist healthcare professionals and students in practicing consultation and communication skills. <strong>The Service does not provide medical advice, diagnosis, or treatment.</strong> You agree not to use the Service in any clinical setting or rely on the AI-generated feedback for real-world patient care.
+            </p>
+
+            <h3 class="text-xl font-bold text-white mt-10 mb-4">2. Prohibited Conduct</h3>
+            <p class="text-slate-400 leading-relaxed mb-6">
+                You agree not to:<br>
+                • Input Protected Health Information (PHI) or Personally Identifiable Information (PII) of real patients into the system.<br>
+                • Share, resell, or distribute your account credentials or generated API outputs.<br>
+                • Reverse engineer, scrape, or attempt to exploit the underlying AI models or system architecture.
+            </p>
+
+            <h3 class="text-xl font-bold text-white mt-10 mb-4">3. Subscriptions & Credits</h3>
+            <p class="text-slate-400 leading-relaxed mb-6">
+                MedEcho AI offers subscription tiers and pay-as-you-go credits for "Practice" and "Live Consultation" features. Subscriptions are billed on a recurring basis. Pay-as-you-go credits do not expire as long as your account remains active. All purchases are final and non-refundable, except where required by law.
+            </p>
+
+            <h3 class="text-xl font-bold text-white mt-10 mb-4">4. Limitation of Liability</h3>
+            <p class="text-slate-400 leading-relaxed mb-6">
+                To the fullest extent permitted by law, MedEcho AI and its creators shall not be liable for any indirect, incidental, special, or consequential damages resulting from your use of the Service. The platform is provided "AS IS" without warranties of any kind regarding clinical accuracy or uptime.
+            </p>
+
+            <h3 class="text-xl font-bold text-white mt-10 mb-4">5. Account Termination</h3>
+            <p class="text-slate-400 leading-relaxed">
+                We reserve the right to suspend or terminate your account immediately if you violate these Terms, particularly regarding the input of real patient data or the misuse of the AI generation services.
+            </p>
+        </div>
+    </div>
+</section>
+{% endblock %}
