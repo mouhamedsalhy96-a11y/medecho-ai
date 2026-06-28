@@ -173,6 +173,7 @@ EMAIL_HOST_PASSWORD = os.getenv(
     "EMAIL_HOST_PASSWORD",
     os.getenv("RESEND_API_KEY", ""),
 )
+SENDGRID_API_KEY = os.getenv("SENDGRID_API_KEY", "")
 
 DEFAULT_FROM_EMAIL = os.getenv(
     "DEFAULT_FROM_EMAIL",
